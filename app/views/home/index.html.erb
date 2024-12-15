@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-zinc-950 p-6">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-6 flex items-center justify-between">
+      <h1 class="text-2xl font-bold text-white">Leaderboard</h1>
+      <div class="space-x-4">
+        <%= link_to new_user_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" do %>
+          <%= inline_svg_tag 'plus-circle.svg', class: "mr-2 h-4 w-4" %>
+          Add New User
+        <% end %>
+        <%= link_to new_match_result_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" do %>
+          <%= inline_svg_tag 'trophy.svg', class: "mr-2 h-4 w-4" %>
+          Add Match Result
+        <% end %>
+      </div>
+    </div>
+    <div class="rounded-lg border border-zinc-800 bg-zinc-900">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-zinc-800 text-sm text-zinc-400">
+            <th class="p-4 text-left">#</th>
+            <th class="p-4 text-left">Summoner</th>
+            <th class="p-4 text-left">Tier</th>
+            <th class="p-4 text-left">LP</th>
+            <th class="p-4 text-left">Most champions</th>
+            <th class="p-4 text-left">Level</th>
+            <th class="p-4 text-left">Win rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @players.each_with_index do |player, index| %>
+            <tr class="border-b border-zinc-800 text-sm text-zinc-100 <%= 'last:border-0' if index == @players.size - 1 %>">
+              <td class="p-4"><%= index + 1 %></td>
+              <td class="p-4">
+                <div class="flex items-center space-x-3">
+                  <div class="h-8 w-8 rounded-full bg-zinc-800"></div>
+                  <div>
+                    <div class="font-medium"><%= player.name %></div>
+                    <div class="text-xs text-zinc-400"><%= player.tag %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="p-4"><%= player.tier %></td>
+              <td class="p-4"><%= player.lp %> LP</td>
+              <td class="p-4">
+                <div class="flex -space-x-2">
+                  <% player.champions.each do |champion| %>
+                    <div class="h-8 w-8 rounded-full border-2 border-zinc-900 bg-zinc-800"></div>
+                  <% end %>
+                </div>
+              </td>
+              <td class="p-4"><%= player.level %></td>
+              <td class="p-4">
+                <div class="flex items-center space-x-3">
+                  <div class="h-2 w-32 overflow-hidden rounded-full bg-zinc-800">
+                    <div class="h-full bg-gradient-to-r from-blue-500 to-red-500" style="width: <%= (player.wins.to_f / (player.wins + player.losses) * 100).round %>%;"></div>
+                  </div>
+                  <span class="text-xs"><%= (player.wins.to_f / (player.wins + player.losses) * 100).round %>%</span>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
