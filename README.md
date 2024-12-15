@@ -10,6 +10,7 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
+- rails generate rails_icons:install --libraries=feather
 
 * Database creation
 
