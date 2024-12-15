@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RailsIcons.configure do |config|
-  config.default_library = "feather"
+  config.default_library = 'feather'
   # config.default_variant = "" # Set a default variant if multiple exist
 
   # Override Feather defaults
