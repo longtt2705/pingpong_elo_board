@@ -23,3 +23,18 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Development Docker commands
+``` Bash
+docker build --tag pingpong_elo_board_prod --build-arg RAILS_ENV=development .
+docker run --env-file=.env --rm -p 3000:3000 pingpong_elo_board_prod
+```
+
+## `.env` content
+``` Bash
+PINGPONG_ELO_BOARD_DATABASE_HOST= # <add real values>
+PINGPONG_ELO_BOARD_DATABASE_PORT=
+PINGPONG_ELO_BOARD_DATABASE_DATABASE=
+PINGPONG_ELO_BOARD_DATABASE_USERNAME=
+PINGPONG_ELO_BOARD_DATABASE_PASSWORD=
+```
