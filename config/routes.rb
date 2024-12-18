@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users, only: %i[show new destroy create edit update]
+  resources :match_histories
+  resources :users
   get 'home/index'
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
