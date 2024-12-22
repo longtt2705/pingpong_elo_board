@@ -31,47 +31,16 @@ class MatchHistoriesController < ApplicationController
 
     return render(:edit, status: :unprocessable_entity) if first_player.nil? || second_player.nil?
 
-    elo_change = 20
-    ApplicationRecord.transaction do
-      match_history_data = match_history_params.merge(winner_id: winner_id,
-                                                      first_player_elo: first_player.elo,
-                                                      second_player_elo: second_player.elo,
-                                                      elo_change: elo_change
-                                                     )
+    match_history_data = match_history_params.merge(winner_id: winner_id,
+                                                    first_player_elo: first_player.elo,
+                                                    second_player_elo: second_player.elo,
+                                                    elo_change: elo_change
+                                                   )
 
-      @match_history = MatchHistory.new(match_history_data)
-      @match_history.save!
-
-      if winner_id == first_player.id
-        first_player.elo += elo_change
-        second_player.elo -= elo_change
-        first_player.win_streak += 1
-        second_player.win_streak = 0
-      else
-        second_player.elo += elo_change
-        first_player.elo -= elo_change
-        second_player.win_streak += 1
-        first_player.win_streak = 0
-      end
-
-      first_player_matches = first_player.match_histories
-      second_player_matches = second_player.match_histories
-
-      first_player.total_match = first_player_matches.count
-      second_player.total_match = second_player_matches.count
-
-      first_player.total_win_match = first_player_matches.count { |match| match.winner_id == first_player.id }
-      Rails.logger.debug(first_player.total_win_match)
-      second_player.total_win_match = second_player_matches.count { |match| match.winner_id == second_player.id }
-      Rails.logger.debug(second_player.total_win_match)
-
-      first_player.save!
-      second_player.save!
-    end
+    @match_history = MatchHistory.new(match_history_data)
+    @match_history.save!
 
     redirect_to(root_path)
-  rescue StandardError
-    render(:edit, status: :unprocessable_entity)
   end
 
   # PATCH/PUT /match_histories/1 or /match_histories/1.json
