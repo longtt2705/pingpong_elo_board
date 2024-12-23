@@ -32,7 +32,11 @@ class MatchHistoriesController < ApplicationController
 
     return render(:edit, status: :unprocessable_entity) if first_player.nil? || second_player.nil?
 
-    elo_change = elo_rating(first_player.elo, second_player.elo)
+    elo_change = if first_player.id == winner_id
+                   elo_rating(first_player.elo, second_player.elo)
+                 else
+                   elo_rating(second_player.elo, first_player.elo)
+                 end
 
     match_history_data = match_history_params.merge(winner_id: winner_id,
                                                     first_player_elo: first_player.elo,
