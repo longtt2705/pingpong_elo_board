@@ -7,6 +7,6 @@ module EloHelper
     # K = 32
     k = 32
     expected = 1.0 / (1.0 + 10.0**((loser - winner) / 400.0))
-    winner + k * (1.0 - expected)
+    Integer(k * (1.0 - expected))
   end
 end

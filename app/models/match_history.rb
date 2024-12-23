@@ -25,12 +25,12 @@ class MatchHistory < ApplicationRecord
   def update_users_data
     winner.win_streak += 1
     winner.total_match += 1
+    winner.total_win_match += 1
 
     loser = [first_player, second_player].find { |player| player != winner }
     loser.win_streak = 0
     loser.total_match += 1
 
-    elo_change = EloHelper.elo_rating(first_player_elo, second_player_elo)
     winner.elo += elo_change
     loser.elo -= elo_change
 
