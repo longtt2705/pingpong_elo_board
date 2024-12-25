@@ -1,0 +1,27 @@
+<!-- app/views/profiles/_recently_played.html.erb -->
+<div class="p-4 border border-zinc-600 bg-zinc-800 rounded-lg">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold text-white">Recently Played With</h2>
+    <span class="text-sm text-slate-400">Last 20 games</span>
+  </div>
+  <table class="w-full">
+    <thead>
+      <tr class="text-left text-slate-400">
+        <th class="pb-2">Player</th>
+        <th class="pb-2 text-right">Played</th>
+        <th class="pb-2 text-right">W - L</th>
+        <th class="pb-2 text-right">Win Ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recently_played.each do |player| %>
+        <tr class="hover:bg-zinc-600/50 text-white">
+          <td class="py-2 font-medium"><%= player[:user].name %></td>
+          <td class="py-2 text-right"><%= player[:total_played] %></td>
+          <td class="py-2 text-right"><%= "#{player[:wins]} - #{player[:total_played] - player[:wins]}" %></td>
+          <td class="py-2 text-right"><%= (Float(player[:wins]) / Float(player[:total_played]) * 100).round(2) %>%</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

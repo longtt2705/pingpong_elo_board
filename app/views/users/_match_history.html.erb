@@ -1,0 +1,28 @@
+<!-- app/views/profiles/_match_history.html.erb -->
+<div class="p-4">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-xl font-semibold text-white">Match History (Last 20)</h2>
+    <div class="flex items-center gap-4">
+      <%= select_tag :match_type, options_for_select([['All Matches', 'all'], ['Ranked Solo', 'ranked'], ['Normal Games', 'normal']], 'all'), class: "bg-slate-800 text-slate-50 rounded-md border-slate-700" %>
+      <%= text_field_tag :search, nil, placeholder: "Search Player Played With...", class: "bg-slate-800 text-slate-50 rounded-md border-slate-700 w-[300px]" %>
+    </div>
+  </div>
+  <div class="h-[600px] overflow-y-auto grid grid-cols-2 gap-4">
+    <% @recent_matches.each_with_index do |match, index| %>
+      <div class="border border-zinc-600 bg-zinc-800 rounded-lg p-4">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-8 w-8 rounded-full bg-zinc-900"></div>
+              <span class="text-slate-200 text-lg"><%= match.first_player.name %> </span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-8 rounded-full bg-zinc-800"></div>
+              <span class="text-slate-200 text-lg"><%= match.second_player.name %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

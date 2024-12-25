@@ -1,0 +1,26 @@
+<!-- app/views/profiles/_profile_header.html.erb -->
+<div class="flex items-center gap-6 p-4">
+  <div class="relative w-64 h-64">
+    <%= image_tag(@aggregate_user[:tier] + "_Border.png", class: "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40" ) %>
+    <div class="absolute top-[calc(50%+2.1rem)] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 object-cover rounded-full bg-zinc-800"></div>
+    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-800 px-2 py-0.5 rounded">
+      <div class="flex flex-row gap-1 items-center text-xl text-zinc-400">
+        <%= image_tag(@aggregate_user[:flame_icon], width: 20) %>
+        <span>
+          <%= @aggregate_user[:user].win_streak %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center gap-3 mb-2">
+      <h1 class="text-4xl font-bold text-white"><%= @aggregate_user[:user].name %></h1>
+      <h2 class="text-3xl text-slate-400 text-white">#<%= @aggregate_user[:user].team %></h2>
+    </div>
+    <div class="flex items-center gap-2 mb-4">
+      <span class="inline-flex items-center rounded-md bg-slate-400/10 px-2 py-1 text-xs font-medium text-slate-400 ring-1 ring-inset ring-slate-400/20">
+        Ladder Rank <%= @aggregate_user[:rank] %> (top <%= @aggregate_user[:top_percent].round(2) %>%)
+      </span>
+    </div>
+  </div>
+</div>

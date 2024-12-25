@@ -1,0 +1,16 @@
+<!-- app/views/profiles/_rank_display.html.erb -->
+<div class="flex items-center gap-4 p-4 bg-slate-800/50 rounded-lg">
+  <div class="flex items-center gap-3">
+    <%= image_tag(@aggregate_user[:tier] + ".png", width: 60) %>
+    <div>
+      <div class="text-xl font-bold"><%= @aggregate_user[:tier].capitalize %></div>
+      <div class="text-slate-400"><%= @aggregate_user[:user].elo %> Elo</div>
+    </div>
+  </div>
+  <div class="ml-auto flex items-center gap-2">
+    <div class="text-right">
+      <div class="text-xl"><%= @aggregate_user[:wins] %>W <%= @aggregate_user[:losses] %>L</div>
+      <div class="text-slate-400"><%= @aggregate_user[:win_rate] %>% Win Rate</div>
+    </div>
+  </div>
+</div>

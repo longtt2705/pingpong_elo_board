@@ -1,27 +1,13 @@
-<div id="<%= dom_id user %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= user.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Elo:</strong>
-    <%= user.elo %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Win streak:</strong>
-    <%= user.win_streak %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total match:</strong>
-    <%= user.total_match %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total win match:</strong>
-    <%= user.total_win_match %>
-  </p>
-
+<div class="container mx-auto py-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-3">
+      <%= render 'profile_header' %>
+    </div>
+    <div class="space-y-6">
+      <%= render 'recently_played' %>
+    </div>
+    <div class="lg:col-span-2">
+      <%= render 'match_history' %>
+    </div>
+  </div>
 </div>

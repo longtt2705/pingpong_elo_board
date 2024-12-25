@@ -1,15 +1,37 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    redirect_to(root_path)
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    user = User.find(params.expect(:id))
+    total_users = User.count
+    index = User.all.order(elo: :desc).index(user)
+
+    @aggregate_user = user_info(user, index, total_users)
+    @recent_matches = @user.match_histories(20)
+
+    recently_played_hash = {}
+    @recent_matches.each do |match|
+      opponent = match.first_player_id == user.id ? match.second_player : match.first_player
+      is_win = match.winner_id == user.id
+      if recently_played_hash[opponent.id].nil?
+        recently_played_hash[opponent.id] = { user: opponent, total_played: 1, wins: is_win ? 1 : 0 }
+      else
+        recently_played_hash[opponent.id][:total_played] += 1
+        recently_played_hash[opponent.id][:wins] += 1 if is_win
+      end
+    end
+
+    @recently_played = recently_played_hash.values
+  end
 
   # GET /users/new
   def new

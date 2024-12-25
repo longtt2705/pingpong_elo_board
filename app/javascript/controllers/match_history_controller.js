@@ -7,8 +7,6 @@ export default class extends Controller {
     currentSecondPlayer = null;
 
     connect() {
-        console.log("Hello from match_history_controller.js")
-
         this.setDefaultValues();
         this.updateDisabledOption();
     }

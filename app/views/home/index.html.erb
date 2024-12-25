@@ -28,7 +28,8 @@
         </thead>
         <tbody>
           <% @aggregate_users.each_with_index do |aggregate_users, index| %>
-            <tr class="border-b border-zinc-800 text-sm text-zinc-100 <%= 'last:border-0' if index == @aggregate_users.size - 1 %>">
+            <tr class="border-b border-zinc-800 text-sm text-zinc-100 hover:bg-zinc-700 cursor-pointer <%= 'last:border-0' if index == @aggregate_users.size - 1 %>"
+              data-controller="home" data-home-url-value="<%= user_path(aggregate_users[:user]) %>" data-action="click->home#goToUrl">
               <td class="p-4"><%= index + 1 %></td>
               <td class="p-4">
                 <div class="flex items-center space-x-3">
@@ -43,31 +44,30 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </td>
-            <td class="p-4">
-              <div class="flex flex-row gap-1.5 items-center text-xs text-zinc-400">
-                <%= image_tag(aggregate_users[:tier] + ".png", width: 35) %>
-                <span>
-                  <%= aggregate_users[:tier] %>
-                </span>
-              </div>
-            </td>
-            <td class="p-4"><%= aggregate_users[:user].elo %></td>
-            <td class="p-4"><%= aggregate_users[:wins] %></td>
-            <td class="p-4"><%= aggregate_users[:losses] %></td>
-            <td class="p-4">
-              <div class="flex items-center space-x-3">
-                <div class="h-2 w-32 overflow-hidden rounded-full bg-zinc-800">
-                  <div class="h-full bg-gradient-to-r from-blue-500 to-red-500" style="width: <%=aggregate_users[:win_rate] || 0 %>%;"></div>
+              </td>
+              <td class="p-4">
+                <div class="flex flex-row gap-1.5 items-center text-xs text-zinc-400">
+                  <%= image_tag(aggregate_users[:tier] + ".png", width: 35) %>
+                  <span>
+                    <%= aggregate_users[:tier] %>
+                  </span>
                 </div>
-                <span class="text-xs"><%= aggregate_users[:win_rate] %>%</span>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+              </td>
+              <td class="p-4"><%= aggregate_users[:user].elo %></td>
+              <td class="p-4"><%= aggregate_users[:wins] %></td>
+              <td class="p-4"><%= aggregate_users[:losses] %></td>
+              <td class="p-4">
+                <div class="flex items-center space-x-3">
+                  <div class="h-2 w-32 overflow-hidden rounded-full bg-zinc-800">
+                    <div class="h-full bg-gradient-to-r from-blue-500 to-red-500" style="width: <%=aggregate_users[:win_rate] || 0 %>%;"></div>
+                  </div>
+                  <span class="text-xs"><%= aggregate_users[:win_rate] %>%</span>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </div>
